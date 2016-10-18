@@ -1,0 +1,51 @@
+################################################################
+# Web configuration backend
+################################################################
+
+# Enable web configuration backend
+#
+# Optional
+#
+[web]
+
+# Web administration port
+#
+# Required
+#
+address = ":8080"
+
+################################################################
+# Docker configuration backend
+################################################################
+
+# Enable Docker configuration backend
+#
+# Optional
+#
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+#
+endpoint = "unix:///var/run/docker.sock"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a container.
+#
+# Required
+#
+domain = "docker.localhost"
+
+# Enable watch docker changes
+#
+# Optional
+#
+watch = true
+
+# Expose containers by default in traefik
+#
+# Optional
+# Default: true
+#
+# exposedbydefault = true
