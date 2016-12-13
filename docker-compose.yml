@@ -1,0 +1,32 @@
+version: '2'
+services:
+  traefik:
+    image: traefik
+    ports:
+    - "82:80"
+    - "8082:8080"
+    volumes:
+    - "./traefik.toml:/etc/traefik/traefik.toml"
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  frontend:
+    build: ./frontend
+    image: cheztone/traefik-demo-front
+    expose:
+    - "80"
+    labels:
+    - "traefik.frontend.rule=Host:${TRAEFIK_HOST}"
+    - "traefik.port=80"
+  backend1:
+    build: ./backend
+    image: cheztone/traefik-demo-back
+    labels:
+    - "traefik.frontend.rule=Host:${TRAEFIK_HOST};Path:/backend"
+    - "traefik.backend=backend"
+    - "traefik.port=8080"
+  backend2:
+      build: ./backend
+      image: cheztone/traefik-demo-back
+      labels:
+      - "traefik.frontend.rule=Host:${TRAEFIK_HOST};Path:/backend"
+      - "traefik.backend=backend"
+      - "traefik.port=8080"
